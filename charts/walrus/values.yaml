@@ -1,0 +1,86 @@
+# Default values for optimism-node.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  pullPolicy: Always
+  repository: mysten/walrus-service
+  tag: testnet
+
+walrus:
+  rpc: https://mysten-rpc.testnet.sui.io:443
+  networkKey: ""
+  protocolKey: ""
+  client:
+    address: "0x"
+    key: ""
+
+  config:
+    name: name
+    public_host: hostname
+    public_port: 9185
+    commission_rate: 0
+    voting_params:
+      storage_price: 100
+      write_price: 2000
+      node_capacity: 1073741824000
+    metrics_push:
+      push_url: https://walrus-metrics-testnet.mystenlabs.com/publish/metrics
+
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: LoadBalancer
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+pruningConfig:
+
+persistence:
+  # -- Kubernetes storage class to use for fullnode persistent storage
+  storageClassName:
+  # -- Size of fullnode persistent storage
+  size: 1000Gi

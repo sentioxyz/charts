@@ -1,0 +1,17 @@
+remote: origin
+target-branch: main
+chart-dirs:
+  - charts/
+chart-repos:
+  - sentio=https://sentioxyz.github.io/charts
+  - stable=https://charts.helm.sh/stable
+  - bitnami=https://charts.bitnami.com/bitnami
+  - bitnami-archive=https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+  - grafana=https://grafana.github.io/helm-charts
+excluded-charts: []
+debug: true
+check-version-increment: true
+validate-chart-schema: true
+validate-maintainers: true
+validate-yaml: true
+helm-extra-args: --timeout 600s

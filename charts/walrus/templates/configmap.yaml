@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "walrus-node.fullname" $ }}
+data:
+  network.key: "{{ .Values.walrus.networkKey }}"
+  protocol.key: "{{ .Values.walrus.protocolKey }}"
+
+  sui_config.yaml: |
+    ---
+    keystore:
+      File: /etc/walrus/config/sui.keystore
+    envs:
+      - alias: "network"
+        rpc: "{{ .Values.walrus.rpc }}"
+        ws: ~
+        basic_auth: ~
+    active_env: network
+    active_address: "{{ .Values.walrus.client.address }}"
+
+  sui.keystore: |
+    [
+      "{{ .Values.walrus.client.key }}"
+    ]
+
+  walrus-node.yaml: |
+    name: {{ .Values.walrus.config.name }}
+    storage_path: /opt/walrus/db
+    protocol_key_pair:
+      path: /etc/walrus/config/protocol.key
+    network_key_pair:
+      path: /etc/walrus/config/network.key
+    public_host: {{ .Values.walrus.config.public_host }}
+    public_port: {{ .Values.walrus.config.public_port }}
+    metrics_address: 127.0.0.1:9184
+    rest_api_address: 0.0.0.0:9185
+    rest_graceful_shutdown_period_secs: 60
+    sui:
+      rpc: {{ .Values.walrus.rpc }}
+      system_object: 0x98ebc47370603fe81d9e15491b2f1443d619d1dab720d586e429ed233e1255c1
+      staking_object: 0x20266a17b4f1a216727f3eef5772f8d486a9e3b5e319af80a5b75809c035561d
+      event_polling_interval_millis: 400
+      wallet_config: /etc/walrus/config/sui_config.yaml
+      gas_budget: 500000000
+    commission_rate: {{ .Values.walrus.config.commission_rate }}
+    voting_params:
+      {{- toYaml .Values.walrus.config.voting_params | nindent 6 }}
+    metrics_push:
+      {{- toYaml .Values.walrus.config.metrics_push | nindent 6 }}

@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  walrus:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2025-02-18T03:14:53.843263566Z"
+    description: A Helm chart for Kubernetes
+    digest: 29fb87596354e1d16a6ca89b362b403aa83aa798d1cf58821b938f0a0e8c4f75
+    name: walrus
+    type: application
+    urls:
+    - https://github.com/sentioxyz/charts/releases/download/walrus-0.1.0/walrus-0.1.0.tgz
+    version: 0.1.0
+generated: "2025-02-18T03:14:53.843269297Z"

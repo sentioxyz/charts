@@ -1,5 +1,18 @@
 apiVersion: v1
 entries:
+  aptos-node:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-03-13T22:00:10.304241843Z"
+    description: Aptos blockchain node deployment
+    digest: de1d88df5a4d5730bea0e6774ceb74754b2fd37da6388ff00fb078cd271a3468
+    home: https://aptoslabs.com/
+    name: aptos-node
+    sources:
+    - https://github.com/aptos-labs/aptos-core
+    urls:
+    - https://github.com/sentioxyz/charts/releases/download/aptos-node-1.0.0/aptos-node-1.0.0.tgz
+    version: 1.0.0
   walrus:
   - apiVersion: v2
     appVersion: 1.16.0
@@ -11,4 +24,4 @@ entries:
     urls:
     - https://github.com/sentioxyz/charts/releases/download/walrus-0.1.0/walrus-0.1.0.tgz
     version: 0.1.0
-generated: "2025-02-18T03:14:53.843269297Z"
+generated: "2025-03-13T22:00:10.304252293Z"

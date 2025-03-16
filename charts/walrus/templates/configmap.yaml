@@ -3,7 +3,8 @@ kind: ConfigMap
 metadata:
   name: {{ include "walrus-node.fullname" $ }}
 data:
-  network.key: "{{ .Values.walrus.networkKey }}"
+  network.key: |
+    {{ .Values.walrus.networkKey | nindent 4 }}
   protocol.key: "{{ .Values.walrus.protocolKey }}"
 
   sui_config.yaml: |
@@ -29,7 +30,11 @@ data:
     protocol_key_pair:
       path: /etc/walrus/config/protocol.key
     network_key_pair:
+      {{- if eq .Values.walrus.config.tls.disable_tls false }}
+      path: /etc/walrus/config/tls/tls.key
+      {{- else}}
       path: /etc/walrus/config/network.key
+      {{- end}}
     public_host: {{ .Values.walrus.config.public_host }}
     public_port: {{ .Values.walrus.config.public_port }}
     metrics_address: 127.0.0.1:9184
@@ -49,3 +54,6 @@ data:
       {{- toYaml .Values.walrus.config.metrics_push | nindent 6 }}
     tls:
       {{- toYaml .Values.walrus.config.tls | nindent 6 }}
+      {{- if eq .Values.walrus.config.tls.disable_tls false }}
+      certificate_path: /opt/walrus/config/tls/tls.crt
+      {{- end}}

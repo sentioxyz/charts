@@ -40,7 +40,7 @@ spec:
           args:
           - |
             mkdir -p /etc/walrus/config
-            cp /opt/walrus/config/* /etc/walrus/config
+            cp -r -L /opt/walrus/config/* /etc/walrus/config
             exec /opt/walrus/bin/walrus-node run --config-path /etc/walrus/config/walrus-node.yaml
           ports:
             - name: rpc
@@ -57,6 +57,12 @@ spec:
             - name: config
               mountPath: /opt/walrus/config
               readOnly: true
+            {{- if eq .Values.walrus.config.tls.disable_tls false }}
+            - name: tls
+              mountPath: /opt/walrus/config/tls
+              readOnly: true
+            {{- end}}
+
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -73,6 +79,11 @@ spec:
         - name: config
           configMap:
             name: {{ include "walrus-node.fullname" . }}
+        {{- if eq .Values.walrus.config.tls.disable_tls false }}
+        - name: tls
+          secret:
+            secretName: {{ include "walrus-node.fullname" . }}-tls
+        {{- end}}
   volumeClaimTemplates:
   - metadata:
       name: data

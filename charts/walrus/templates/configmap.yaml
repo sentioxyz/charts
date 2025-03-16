@@ -37,8 +37,8 @@ data:
     rest_graceful_shutdown_period_secs: 60
     sui:
       rpc: {{ .Values.walrus.rpc }}
-      system_object: 0x98ebc47370603fe81d9e15491b2f1443d619d1dab720d586e429ed233e1255c1
-      staking_object: 0x20266a17b4f1a216727f3eef5772f8d486a9e3b5e319af80a5b75809c035561d
+      system_object: {{ .Values.walrus.config.sui.system_object }}
+      staking_object: {{ .Values.walrus.config.sui.staking_object }}
       event_polling_interval_millis: 400
       wallet_config: /etc/walrus/config/sui_config.yaml
       gas_budget: 500000000
@@ -47,3 +47,5 @@ data:
       {{- toYaml .Values.walrus.config.voting_params | nindent 6 }}
     metrics_push:
       {{- toYaml .Values.walrus.config.metrics_push | nindent 6 }}
+    tls:
+      {{- toYaml .Values.walrus.config.tls | nindent 6 }}

@@ -57,3 +57,5 @@ data:
       {{- if eq .Values.walrus.config.tls.disable_tls false }}
       certificate_path: /opt/walrus/config/tls/tls.crt
       {{- end}}
+    storage_node_cap:
+      {{- toYaml .Values.walrus.config.storage_node_cap | nindent 6 }}

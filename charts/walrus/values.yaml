@@ -31,7 +31,8 @@ walrus:
       node_capacity: 1073741824000
     metrics_push:
       push_url: https://walrus-metrics-testnet.mystenlabs.com/publish/metrics
-
+    tls:
+      disable_tls: true
 
 imagePullSecrets: []
 nameOverride: ""

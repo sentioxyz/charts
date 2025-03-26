@@ -3,8 +3,7 @@ kind: ConfigMap
 metadata:
   name: {{ include "walrus-node.fullname" $ }}
 data:
-  network.key: |
-    {{ .Values.walrus.networkKey | nindent 4 }}
+  network.key: "{{ .Values.walrus.networkKey | nindent 4 }}"
   protocol.key: "{{ .Values.walrus.protocolKey }}"
 
   sui_config.yaml: |
@@ -42,6 +41,7 @@ data:
     rest_graceful_shutdown_period_secs: 60
     sui:
       rpc: {{ .Values.walrus.rpc }}
+      rpc_fallback_config: {{ .Values.walrus.config.sui.rpc_fallback_config }}
       system_object: {{ .Values.walrus.config.sui.system_object }}
       staking_object: {{ .Values.walrus.config.sui.staking_object }}
       event_polling_interval_millis: 400

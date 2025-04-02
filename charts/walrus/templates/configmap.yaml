@@ -42,7 +42,7 @@ data:
     sui:
       rpc: {{ .Values.walrus.rpc }}
       rpc_fallback_config:
-        {{- toYaml .Values.walrus.config.sui.rpc_fallback_config | nindent 6 }}
+        {{- toYaml .Values.walrus.config.sui.rpc_fallback_config | nindent 8 }}
       system_object: {{ .Values.walrus.config.sui.system_object }}
       staking_object: {{ .Values.walrus.config.sui.staking_object }}
       event_polling_interval_millis: 400

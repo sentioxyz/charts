@@ -41,7 +41,8 @@ data:
     rest_graceful_shutdown_period_secs: 60
     sui:
       rpc: {{ .Values.walrus.rpc }}
-      rpc_fallback_config: {{ .Values.walrus.config.sui.rpc_fallback_config }}
+      rpc_fallback_config:
+        {{- toYaml .Values.walrus.config.sui.rpc_fallback_config | nindent 6 }}
       system_object: {{ .Values.walrus.config.sui.system_object }}
       staking_object: {{ .Values.walrus.config.sui.staking_object }}
       event_polling_interval_millis: 400

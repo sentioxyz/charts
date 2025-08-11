@@ -17,3 +17,23 @@ spec:
       name: walrus
   selector:
     {{- include "walrus-node.selectorLabels" . | nindent 4 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "walrus-node.fullname" . }}-metrics
+  labels:
+    {{- include "walrus-node.labels" . | nindent 4 }}
+  {{- with .Values.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 9184
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
+  selector:
+    {{- include "walrus-node.selectorLabels" . | nindent 4 }}

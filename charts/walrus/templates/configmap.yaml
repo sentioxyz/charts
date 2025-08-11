@@ -36,7 +36,7 @@ data:
       {{- end}}
     public_host: {{ .Values.walrus.config.public_host }}
     public_port: {{ .Values.walrus.config.public_port }}
-    metrics_address: 127.0.0.1:9184
+    metrics_address: 0.0.0.0:9184
     rest_api_address: 0.0.0.0:9185
     rest_graceful_shutdown_period_secs: 60
     sui:

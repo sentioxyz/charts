@@ -13,8 +13,6 @@ spec:
   template:
     metadata:
       annotations:
-        0.prometheus.io/scrape: "true"
-        0.prometheus.io/port: "9184"
       {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}

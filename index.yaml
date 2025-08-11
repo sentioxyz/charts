@@ -13,7 +13,51 @@ entries:
     urls:
     - https://github.com/sentioxyz/charts/releases/download/aptos-node-1.0.0/aptos-node-1.0.0.tgz
     version: 1.0.0
+  promscale:
+  - apiVersion: v2
+    appVersion: 0.17.0
+    created: "2025-08-11T04:57:36.671413026Z"
+    description: Promscale Connector deployment
+    digest: eabab44daf01a34b92071592e47b9611186e14f281b965d86a0bd158c2b1e0db
+    home: https://github.com/timescale/promscale
+    maintainers:
+    - email: support@timescale.com
+      name: TimescaleDB
+    name: promscale
+    sources:
+    - https://github.com/timescale/promscale
+    - https://github.com/timescale/helm-charts
+    urls:
+    - https://github.com/sentioxyz/charts/releases/download/promscale-15.0.0/promscale-15.0.0.tgz
+    version: 15.0.0
+  timescaledb-single:
+  - apiVersion: v1
+    created: "2025-08-11T04:57:36.775200826Z"
+    description: TimescaleDB HA Deployment.
+    digest: f822200d06d3d494702b059fc768a6e81c4240d8ef83017573117774109e6b43
+    home: https://github.com/timescale/helm-charts
+    maintainers:
+    - email: support@timescale.com
+      name: TimescaleDB
+    name: timescaledb-single
+    sources:
+    - https://github.com/timescale/helm-charts
+    - https://github.com/timescale/timescaledb-docker-ha
+    - https://github.com/zalando/patroni
+    urls:
+    - https://github.com/sentioxyz/charts/releases/download/timescaledb-single-0.27.3/timescaledb-single-0.27.3.tgz
+    version: 0.27.3
   walrus:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2025-08-11T04:57:36.89112561Z"
+    description: A Helm chart for Kubernetes
+    digest: 0089daab516342b9efc9ee9ca928925d0b860298b99cca260f24121738bfa3d6
+    name: walrus
+    type: application
+    urls:
+    - https://github.com/sentioxyz/charts/releases/download/walrus-0.2.7/walrus-0.2.7.tgz
+    version: 0.2.7
   - apiVersion: v2
     appVersion: 1.16.0
     created: "2025-04-02T04:16:30.629025094Z"
@@ -94,4 +138,4 @@ entries:
     urls:
     - https://github.com/sentioxyz/charts/releases/download/walrus-0.1.0/walrus-0.1.0.tgz
     version: 0.1.0
-generated: "2025-04-02T04:16:30.629062865Z"
+generated: "2025-08-11T04:57:36.89116253Z"

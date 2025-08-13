@@ -45,6 +45,7 @@ data:
         {{- toYaml .Values.walrus.config.sui.rpc_fallback_config | nindent 8 }}
       system_object: {{ .Values.walrus.config.sui.system_object }}
       staking_object: {{ .Values.walrus.config.sui.staking_object }}
+      walrus_subsidies_object: {{ .Values.walrus.config.sui.walrus_subsidies_object }}
       event_polling_interval_millis: 400
       wallet_config: /etc/walrus/config/sui_config.yaml
       gas_budget: 500000000

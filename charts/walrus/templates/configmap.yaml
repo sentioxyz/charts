@@ -41,7 +41,8 @@ data:
     rest_graceful_shutdown_period_secs: 60
     sui:
       rpc: {{ .Values.walrus.rpc }}
-      additional_rpc_endpoints: {{ .Values.walrus.config.sui.additional_rpc_endpoints }}
+      additional_rpc_endpoints: 
+        {{- toYaml .Values.walrus.config.sui.additional_rpc_endpoints | nindent 8 }}
       rpc_fallback_config:
         {{- toYaml .Values.walrus.config.sui.rpc_fallback_config | nindent 8 }}
       system_object: {{ .Values.walrus.config.sui.system_object }}

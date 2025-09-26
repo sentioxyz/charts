@@ -1,0 +1,27 @@
+{{- if .Values.publisher.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "walrus-node.fullname" . }}-publisher
+  labels:
+    {{- include "walrus-node.labels" . | nindent 4 }}
+    role: publisher
+  {{- with .Values.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.publisher.public_port }}
+      targetPort: rpc
+      protocol: TCP
+      name: rpc
+    - port: {{ .Values.publisher.metrics_port }}
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
+  selector:
+    {{- include "walrus-node.selectorLabels" . | nindent 4 }}
+    role: publisher
+{{- end }}

@@ -1,6 +1,11 @@
-# Default values for optimism-node.
+# Default values for walrus.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+
+# Component enablement flags
+components:
+  node:
+    enabled: true
 
 replicaCount: 1
 
@@ -35,6 +40,21 @@ walrus:
       push_url: https://walrus-metrics-testnet.mystenlabs.com/publish/metrics
     tls:
       disable_tls: true
+
+# Aggregator configuration
+aggregator:
+  enabled: false
+  public_port: 9000
+  metrics_port: 27182
+
+# Publisher configuration
+publisher:
+  enabled: false
+  public_port: 9001
+  metrics_port: 27183
+  client:
+    address: "0x"
+    key: ""
 
 imagePullSecrets: []
 nameOverride: ""

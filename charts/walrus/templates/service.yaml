@@ -1,3 +1,4 @@
+{{- if .Values.components.node.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -17,6 +18,7 @@ spec:
       name: walrus
   selector:
     {{- include "walrus-node.selectorLabels" . | nindent 4 }}
+    role: node
 ---
 apiVersion: v1
 kind: Service
@@ -37,3 +39,5 @@ spec:
       name: metrics
   selector:
     {{- include "walrus-node.selectorLabels" . | nindent 4 }}
+    role: node
+{{- end }}

@@ -1,0 +1,27 @@
+{{- if .Values.aggregator.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "walrus-node.fullname" . }}-aggregator
+  labels:
+    {{- include "walrus-node.labels" . | nindent 4 }}
+    role: aggregator
+  {{- with .Values.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.aggregator.public_port }}
+      targetPort: rpc
+      protocol: TCP
+      name: rpc
+    - port: {{ .Values.aggregator.metrics_port }}
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
+  selector:
+    {{- include "walrus-node.selectorLabels" . | nindent 4 }}
+    role: aggregator
+{{- end }}

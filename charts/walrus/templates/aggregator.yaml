@@ -1,16 +1,17 @@
-{{- if .Values.components.node.enabled }}
+{{- if .Values.aggregator.enabled }}
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
-  name: {{ include "walrus-node.fullname" . }}
+  name: {{ include "walrus-node.fullname" . }}-aggregator
   labels:
     {{- include "walrus-node.labels" . | nindent 4 }}
+    role: aggregator
 spec:
-  serviceName: {{ include "walrus-node.fullname" . }}
   replicas:  {{ .Values.replicaCount }}
   selector:
     matchLabels:
       {{- include "walrus-node.selectorLabels" . | nindent 6 }}
+      role: aggregator
   template:
     metadata:
       annotations:
@@ -19,7 +20,7 @@ spec:
       {{- end }}
       labels:
         {{- include "walrus-node.selectorLabels" . | nindent 8 }}
-        role: node
+        role: aggregator
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -29,7 +30,7 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: walrus-node
+        - name: walrus-aggregator
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
@@ -41,57 +42,23 @@ spec:
           - |
             mkdir -p /etc/walrus/config
             cp -r -L /opt/walrus/config/* /etc/walrus/config
-            exec /opt/walrus/bin/walrus-node run --config-path /etc/walrus/config/walrus-node.yaml
+            exec /opt/walrus/bin/walrus --config /etc/walrus/config/client_config.yaml aggregator --bind-address 0.0.0.0:{{ .Values.aggregator.public_port }} --metrics-address 127.0.0.1:{{ .Values.aggregator.metrics_port }}
           ports:
             - name: rpc
-              containerPort: 9185
+              containerPort: {{ .Values.aggregator.public_port }}
               protocol: TCP
             - name: metrics
-              containerPort: 9184
+              containerPort: {{ .Values.aggregator.metrics_port }}
               protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - name: data
-              mountPath: /opt/walrus/db
             - name: config
               mountPath: /opt/walrus/config
               readOnly: true
-            {{- if eq .Values.walrus.config.tls.disable_tls false }}
-            - name: tls
-              mountPath: /opt/walrus/config/tls
-              readOnly: true
-            {{- end}}
 
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       volumes:
         - name: config
           configMap:
             name: {{ include "walrus-node.fullname" . }}
-        {{- if eq .Values.walrus.config.tls.disable_tls false }}
-        - name: tls
-          secret:
-            secretName: {{ include "walrus-node.fullname" . }}-tls
-        {{- end}}
-  volumeClaimTemplates:
-  - metadata:
-      name: data
-    spec:
-      accessModes:
-      - ReadWriteOnce
-      resources:
-        requests:
-          storage: {{ .Values.persistence.size }}
-      storageClassName: {{ .Values.persistence.storageClassName }}
 {{- end }}

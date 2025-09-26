@@ -23,6 +23,32 @@ data:
       "{{ .Values.walrus.client.key }}"
     ]
 
+  client_config.yaml: |
+    system_object: {{ .Values.walrus.config.sui.system_object }}
+    staking_object: {{ .Values.walrus.config.sui.staking_object }}
+    rpc_urls:
+      - {{ .Values.walrus.rpc }}
+    {{- if .Values.publisher.enabled }}
+    wallet_config: /opt/walrus/wallets/sui_client.yaml
+    {{- end }}
+
+  publisher_sui_client.yaml: |
+    ---
+    keystore:
+      File: /opt/walrus/wallets/sui.keystore
+    envs:
+      - alias: "network"
+        rpc: "{{ .Values.walrus.rpc }}"
+        ws: ~
+        basic_auth: ~
+    active_env: network
+    active_address: "{{ .Values.publisher.client.address }}"
+
+  publisher_sui.keystore: |
+    [
+      "{{ .Values.publisher.client.key }}"
+    ]
+
   walrus-node.yaml: |
     name: {{ .Values.walrus.config.name }}
     storage_path: /opt/walrus/db

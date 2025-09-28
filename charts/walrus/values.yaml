@@ -55,6 +55,8 @@ publisher:
   client:
     address: "0x"
     key: ""
+  decodeSecret: ""
+  expiringSec: 120
 
 imagePullSecrets: []
 nameOverride: ""

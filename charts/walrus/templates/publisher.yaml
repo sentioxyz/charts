@@ -42,7 +42,7 @@ spec:
           - |
             mkdir -p /etc/walrus/config
             cp -r -L /opt/walrus/config/* /etc/walrus/config
-            exec /opt/walrus/bin/walrus --config /etc/walrus/config/client_config.yaml publisher --bind-address 0.0.0.0:{{ .Values.publisher.public_port }} --metrics-address 127.0.0.1:{{ .Values.publisher.metrics_port }} --sub-wallets-dir /opt/walrus/wallets
+            exec /opt/walrus/bin/walrus --config /etc/walrus/config/client_config.yaml publisher --bind-address 0.0.0.0:{{ .Values.publisher.public_port }} --metrics-address 127.0.0.1:{{ .Values.publisher.metrics_port }} --sub-wallets-dir /opt/walrus/wallets --jwt-decode-secret {{ .Values.publisher.decodeSecret }}  --jwt-expiring-sec {{ .Values.publisher.expiringSec }}
           ports:
             - name: rpc
               containerPort: {{ .Values.publisher.public_port }}

@@ -89,3 +89,7 @@ data:
       {{- end}}
     storage_node_cap:
       {{- toYaml .Values.walrus.config.storage_node_cap | nindent 6 }}
+
+    {{- if .Values.walrus.extraConfig }}
+    {{ toYaml .Values.walrus.extraConfig | nindent 4 }}
+    {{- end }}

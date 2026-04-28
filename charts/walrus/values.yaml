@@ -30,6 +30,7 @@ walrus:
     sui:
       system_object: 0x98ebc47370603fe81d9e15491b2f1443d619d1dab720d586e429ed233e1255c1
       staking_object: 0x20266a17b4f1a216727f3eef5772f8d486a9e3b5e319af80a5b75809c035561d
+      treasury_object: 0x1dcbbb4fc81c39901be78fcaa6ee0be688512e5ceef11713ef7fe1e6f6a3131b
       rpc_fallback_config:
         checkpoint_bucket: https://checkpoints.testnet.sui.io
     voting_params:
